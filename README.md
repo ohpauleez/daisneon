@@ -24,6 +24,18 @@ $ node
 'hello node - from C++'
 ```
 
+And you can also use the ClojureScript/Lumo REPL (without access to index.js)
+
+```
+$ make cljs-repl
+cljs.user=> (require '[daisneon.bridge :as bridge])
+nil
+cljs.user=> (.hello bridge/rust)
+"hello node - from Rust"
+cljs.user=> (.Hello bridge/cpp)
+"hello node - from C++"
+```
+
 
 ### Hacking
 
