@@ -47,5 +47,5 @@ local-install:
 
 .PHONY : clean
 clean:
-	rm -r ./build ./target ./native/target
+	rm -r ./build ./target ./native/target ./native/index.node
 
