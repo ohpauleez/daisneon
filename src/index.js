@@ -1,10 +1,17 @@
 'use strict'
 
+// All of these require `npm install` to work
 const addon = require('../native');
-const daiscljs = require('../target/main.js'); // requires `npm install` to kick off the full build
+const cppaddon = require('../build/Release/cppaddon');
+const daiscljs = require('../target/main.js');
 
+function hello() {
+    return 'hello node - from JavaScript';
+}
 
-module.exports.hello = addon.hello;
-module.exports.handleChain = addon.handleChain
-module.exports.hellocljs = daisneon.dais.main
+module.exports.hello = hello;
+module.exports.hellorust = addon.hello;
+module.exports.hellocljs = daisneon.dais.main;
+module.exports.hellocpp = cppaddon.Hello;
+module.exports.handleChain = addon.handleChain;
 
