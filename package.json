@@ -13,6 +13,9 @@
     "node-gyp": "^3.6.2"
   },
   "scripts": {
+    "compile-cljs": "lumo -c src build.cljs",
+    "compile-rust": "neon build",
+    "compile-cpp": "node-gyp rebuild",
     "install": "node-gyp rebuild && neon build && lumo -c src build.cljs"
   },
   "gypfile": true
