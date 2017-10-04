@@ -7,7 +7,7 @@ There is also C++ support via node-gyp and [Native Abstractions for Node.js](htt
 
 ### Getting Started
 
-You can compile the Rust and ClojureScript with `npm install`.
+You can compile the Rust, C++, and ClojureScript with `npm install`.
 
 From there you can enter Node.js REPL with `node`:
 
@@ -25,9 +25,15 @@ $ node
 ```
 
 
+### Hacking
+
+ * This project uses `npm` for build tasks.
+   For convenience, these are plumbed into a Makefile
+
+
 ### TODO
 
- * Find or write naive microbenching lib
+ * Wrap `console.time` and `console.timeEnd` in a simple microbench function
  * Microbenchmarks of chain execution
 
 
