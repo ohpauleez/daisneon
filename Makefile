@@ -29,6 +29,10 @@ very-quiet = $(if $V, $1, @$1)
 .PHONY : all
 all: local-install
 
+.PHONY : cljs-repl
+cljs-repl:
+	npm run cljs-socketrepl
+
 .PHONY : cljs
 cljs:
 	npm run compile-cljs
