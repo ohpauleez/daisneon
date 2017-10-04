@@ -15,6 +15,8 @@ From there you can enter Node.js REPL with `node`:
 $ node
 > const dais = require('.')
 > dais.hello()
+'hello node - from JavaScript'
+> dais.hellorust()
 'hello node - from Rust'
 > dais.hellocljs()
 'hello node - from ClojureScript'
