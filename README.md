@@ -41,11 +41,11 @@ cljs.user=> (.Hello bridge/cpp)
 
  * This project uses `npm` for build tasks.
    For convenience, these are plumbed into a Makefile
+ * The ClojureScript REPL has socketrepl support, all via Lumo
+ * You may want to modify `target/main.js` and add `goog.require("daisneon.example");`
+   if you're working at the node shell via index.js
 
 
 ### TODO
-
- * Wrap `console.time` and `console.timeEnd` in a simple microbench function
- * Microbenchmarks of chain execution
 
 
