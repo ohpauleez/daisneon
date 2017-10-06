@@ -1,8 +1,15 @@
-# Dais-Neon
+
+Dais-Neon
+===========
 
 Dais interceptor chain in Rust+Node.js with ClojureScript support.
 
 There is also C++ support via node-gyp and [Native Abstractions for Node.js](https://github.com/nodejs/nan).
+
+The Dais Interceptor Chain is a simple, synchronous-only interceptor chain,
+inspired by [Pedestal](https://github.com/pedestal/pedestal).
+[Dais](https://github.com/ohpauleez/dais) was first written in Java and
+designed to be used in Java and Clojure.
 
 
 ### Getting Started
@@ -45,6 +52,24 @@ cljs.user=> (.Hello bridge/cpp)
  * You may want to modify `target/main.js` and add `goog.require("daisneon.example");`
    if you're working at the node shell via index.js
 
+
+### Basic benchmarks
+
+To see the general numbers, modify `target/main.js` and add `goog.require("daisneon.example");`
+Then you can examine chain executions:
+
+```
+$ node
+> const dais = require('.')
+> dais.testChains()
+```
+
+ * rust: 0.073ms
+  * Static processing only (no dynamic chains, and no error handling)
+ * cljs-static: 0.353ms
+ * cljs: 0.445ms
+ * cljs-js-interop: 1.737ms
+  * Involves converting JS objects to maps and then back to objects at the end
 
 ### TODO
 

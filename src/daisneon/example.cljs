@@ -13,6 +13,7 @@
 
 ;; For the most part,
 ;; these are all 0.08 - 0.3 msecs
+;; Mean is probably around 0.2 msecs
 ;; --------------------------------
 
 ;; 0.1 - 0.31 msecs
