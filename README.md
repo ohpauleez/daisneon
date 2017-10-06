@@ -65,11 +65,11 @@ $ node
 ```
 
  * rust: 0.073ms
-  * Static processing only (no dynamic chains, and no error handling)
+   * Static processing only (no dynamic chains, and no error handling)
  * cljs-static: 0.353ms
  * cljs: 0.445ms
  * cljs-js-interop: 1.737ms
-  * Involves converting JS objects to maps and then back to objects at the end
+   * Involves converting JS objects to maps and then back to objects at the end
 
 ### TODO
 
