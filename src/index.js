@@ -18,6 +18,13 @@ function testChains() {
                                     {enter: ctx => {ctx.b = 2; return ctx}},
                                     {enter: ctx => {ctx.c = 3; return ctx}}]);
   console.timeEnd("rust");
+  console.time("cpp");
+  let cppRes = cppaddon.BasicExecute({"dais.terminators": [ctx => ctx.b !== undefined]},
+                                   [{enter: ctx => {ctx.a = 1; return ctx},
+                                     leave: ctx => {ctx["leave-a"] = 11; return ctx}},
+                                    {enter: ctx => {ctx.b = 2; return ctx}},
+                                    {enter: ctx => {ctx.c = 3; return ctx}}]);
+  console.timeEnd("cpp");
   console.time("js");
   let jsRes = daisjs.execute({"dais.terminators": [ctx => ctx.b !== undefined]},
                                    [{enter: ctx => {ctx.a = 1; return ctx},
@@ -39,6 +46,7 @@ function testChains() {
   let cljsRes = daisneon.example.example1b();
   console.timeEnd("cljs");
   let res = {"rustResult": rustRes,
+             "cppResult": cppRes,
              "jsResult": jsRes,
              "cljsInterResult": cljsInterRes,
              "cljsStaticResult": cljs.core.clj__GT_js(cljsStaticRes),
