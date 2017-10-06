@@ -66,10 +66,15 @@ $ node
 
  * rust: 0.073ms
    * Static processing only (no dynamic chains, and no error handling)
+ * js: 0.051ms
  * cljs-static: 0.353ms
  * cljs: 0.445ms
  * cljs-js-interop: 1.737ms
    * Involves converting JS objects to maps and then back to objects at the end
+
+For reference, the Java Dais chain runs between 0.02ms - 0.20ms.
+The Pedestal Chain runs between 1-3ms.
+
 
 ### TODO
 

@@ -4,6 +4,7 @@
 const addon = require('../native');
 const cppaddon = require('../build/Release/cppaddon');
 const daiscljs = require('../target/main.js');
+const daisjs = require('./dais.js');
 
 function hello() {
   return 'hello node - from JavaScript';
@@ -11,12 +12,19 @@ function hello() {
 
 function testChains() {
   console.time("rust");
-  let rustRes = addon.basicExecute({"dais.terminators": [ctx => ctx.b != undefined]},
+  let rustRes = addon.basicExecute({"dais.terminators": [ctx => ctx.b !== undefined]},
                                    [{enter: ctx => {ctx.a = 1; return ctx},
                                      leave: ctx => {ctx["leave-a"] = 11; return ctx}},
                                     {enter: ctx => {ctx.b = 2; return ctx}},
                                     {enter: ctx => {ctx.c = 3; return ctx}}]);
   console.timeEnd("rust");
+  console.time("js");
+  let jsRes = daisjs.execute({"dais.terminators": [ctx => ctx.b !== undefined]},
+                                   [{enter: ctx => {ctx.a = 1; return ctx},
+                                     leave: ctx => {ctx["leave-a"] = 11; return ctx}},
+                                    {enter: ctx => {ctx.b = 2; return ctx}},
+                                    {enter: ctx => {ctx.c = 3; return ctx}}]);
+  console.timeEnd("js");
   console.time("cljs-js-interop");
   let cljsInterRes = daisneon.dais.execute({"dais.terminators": [ctx => cljs.core.get(ctx, "b")]},
                                            [{enter: ctx => cljs.core.assoc(ctx, "a", 1),
@@ -31,6 +39,7 @@ function testChains() {
   let cljsRes = daisneon.example.example1b();
   console.timeEnd("cljs");
   let res = {"rustResult": rustRes,
+             "jsResult": jsRes,
              "cljsInterResult": cljsInterRes,
              "cljsStaticResult": cljs.core.clj__GT_js(cljsStaticRes),
              "cljsResult": cljs.core.clj__GT_js(cljsRes),
