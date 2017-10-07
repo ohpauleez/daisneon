@@ -66,7 +66,7 @@ $ node
 
  * rust: 0.073ms
    * Static processing only (no dynamic chains, and no error handling)
- * cpp: 0.034ms
+ * cpp: 0.042ms
    * Static processing only (no dynamic chains, and no error handling)
  * js: 0.051ms
  * cljs-static: 0.353ms
