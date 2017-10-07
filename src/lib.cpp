@@ -2,6 +2,7 @@
 #include <nan.h>
 #include <algorithm>
 #include <vector>
+#include <list>
 
 using namespace v8;
 
@@ -22,10 +23,11 @@ NAN_METHOD(BasicExecute) {
     auto terminators_key = Nan::New("dais.terminators").ToLocalChecked();
     auto js_terminators = Nan::Has(context, terminators_key).FromJust() ? Nan::Get(context, terminators_key).ToLocalChecked().As<v8::Array>() : Nan::New<v8::Array>();
     std::vector<Local<v8::Function>> terminators;
+    std::list<Local<v8::Function>> stack;
 
     auto enter_key = Nan::New("enter").ToLocalChecked();
     auto leave_key = Nan::New("leave").ToLocalChecked();
-    auto has_terminated = false;
+    auto should_process_leave = false; // A flag to signal if leave leave handlers should be processed
 
     //Prepare our terminators so we can iterate over them
     unsigned int term_len = 0;
@@ -47,9 +49,11 @@ NAN_METHOD(BasicExecute) {
     for (unsigned int i = 0; i < len; i++) {
         if (Nan::Has(interceptors, i).FromJust()) {
             // Get the interceptor object
-            //auto interceptor_v = Nan::Get(interceptors, i).ToLocalChecked();
-            //auto interceptor = Nan::To<v8::Object>(interceptor_v).ToLocalChecked();
             auto interceptor = Nan::Get(interceptors, i).ToLocalChecked().As<v8::Object>();
+            // If the interceptor has a `leave`, add it to the stack
+            if (Nan::Has(interceptor, leave_key).FromJust()) {
+                stack.push_front(Nan::Get(interceptor, leave_key).ToLocalChecked().As<v8::Function>());
+            }
             // If the interceptor has an `enter`, call it.  Otherwise, move on to the next interceptor
             if (Nan::Has(interceptor, enter_key).FromJust()) {
                 auto enter_fn = Nan::Get(interceptor, enter_key).ToLocalChecked().As<v8::Function>();
@@ -60,10 +64,17 @@ NAN_METHOD(BasicExecute) {
                             [&](Local<v8::Function> terminator) {
                                 return Nan::To<bool>(Nan::Call(terminator, global_js_context, 1, args).ToLocalChecked()).FromJust();
                             })) {
-                    has_terminated = true;
+                    should_process_leave = true;
                     break;
                 }
             }
+        }
+    }
+    // Process Leave
+    if (should_process_leave) {
+        for (auto leave_fn : stack) {
+            v8::Local<v8::Value> args[] = {context.As<v8::Value>()};
+            context = Nan::Call(leave_fn, global_js_context, 1, args).ToLocalChecked().As<v8::Object>();
         }
     }
     info.GetReturnValue().Set(context);
