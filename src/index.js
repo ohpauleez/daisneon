@@ -55,6 +55,22 @@ function testChains() {
   return res;
 }
 
+function testA (x) {
+    return x+1;
+}
+
+const testB = (x) => {return x+1};
+
+function testFuns() {
+    let x = 1;
+    console.time("funct");
+    testA(x);
+    console.timeEnd("funct");
+    console.time("const");
+    testB(x);
+    console.timeEnd("const");
+}
+
 module.exports.hello = hello;
 module.exports.hellorust = addon.hello;
 module.exports.hellocljs = daisneon.dais.hello;
@@ -62,4 +78,5 @@ module.exports.hellocpp = cppaddon.Hello;
 
 module.exports.executeChain = addon.executeChain;
 module.exports.testChains = testChains;
+module.exports.testFuns = testFuns;
 

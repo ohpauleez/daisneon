@@ -80,4 +80,5 @@ The Pedestal Chain runs between 1-3ms.
 
 ### TODO
 
+ * Consider adding Nan::TryCatch and tc.HasCaught() to the C++ code
 

@@ -1,8 +1,8 @@
 
-#include <nan.h>
 #include <algorithm>
 #include <vector>
 #include <list>
+#include <nan.h>
 
 using namespace v8;
 
