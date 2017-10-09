@@ -72,7 +72,7 @@ NAN_METHOD(BasicExecute) {
     }
     // Process Leave
     if (should_process_leave) {
-        for (auto leave_fn : stack) {
+        for (auto const &leave_fn : stack) {
             v8::Local<v8::Value> args[] = {context.As<v8::Value>()};
             context = Nan::Call(leave_fn, global_js_context, 1, args).ToLocalChecked().As<v8::Object>();
         }
