@@ -69,8 +69,8 @@ $ node
  * cpp: 0.042ms
    * Static processing only (no dynamic chains, and no error handling)
  * js: 0.051ms
- * cljs-static: 0.353ms
- * cljs: 0.445ms
+ * cljs-static: 0.287ms
+ * cljs: 0.346ms
  * cljs-js-interop: 1.737ms
    * Involves converting JS objects to maps and then back to objects at the end
 
