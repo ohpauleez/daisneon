@@ -55,6 +55,14 @@ cljs.user=> (.Hello bridge/cpp)
 
 ### Basic benchmarks
 
+This project is mostly about exploring the integration possibilities and
+understanding runtime overhead.  The native code never migrates to typed arrays,
+it only does interop and works directly in the v8 types.
+
+"The machine code that V8 emits for your JS code can specialize and take
+shortcuts but every element Get/Set call in your [native] code goes through
+a lot of layers to implement the proper JS semantics." [see issue](https://github.com/nodejs/nan/issues/640)
+
 To see the general numbers, modify `target/main.js` and add `goog.require("daisneon.example");`
 Then you can examine chain executions:
 
