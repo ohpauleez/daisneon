@@ -61,7 +61,7 @@ function testA (x) {
 
 const testB = (x) => {return x+1};
 
-function testFuns() {
+function testFns() {
     let x = 1;
     console.time("funct");
     testA(x);
@@ -69,6 +69,16 @@ function testFuns() {
     console.time("const");
     testB(x);
     console.timeEnd("const");
+    console.time("funct2");
+    for (let i = 0; i < 10000; i++) {
+        testA(x);
+    }
+    console.timeEnd("funct2");
+    console.time("const2");
+    for (let i = 0; i < 10000; i++) {
+        testB(x);
+    }
+    console.timeEnd("const2");
 }
 
 module.exports.hello = hello;
@@ -78,5 +88,6 @@ module.exports.hellocpp = cppaddon.Hello;
 
 module.exports.executeChain = addon.executeChain;
 module.exports.testChains = testChains;
-module.exports.testFuns = testFuns;
+
+module.exports.testFns = testFns;
 

@@ -3,7 +3,7 @@
 
 // The Dais interceptor chain in pure, naive JavaScript (using mutable data types)
 
-const handleLeave = (context) => {
+function handleLeave(context) {
     let stack = context["dais.stack"];
     let stackLen = stack.length;
     for(let i = 0; i < stackLen; i++) {
@@ -23,7 +23,7 @@ const handleLeave = (context) => {
     return context;
 }
 
-const handleError = (context) => {
+function handleError(context) {
     let stack = context["dais.stack"];
     let stackLen = stack.length;
     for(let i = 0; i < stackLen; i++) {
@@ -40,7 +40,7 @@ const handleError = (context) => {
     return context;
 }
 
-const handleEnter = (context) => {
+function handleEnter(context) {
     let queue = context["dais.queue"];
     let stack = context["dais.stack"];
     let terminators = context["dais.terminators"];
@@ -75,7 +75,7 @@ const handleEnter = (context) => {
     return context;
 }
 
-const execute = (context, interceptors) => {
+function execute(context, interceptors) {
     if (interceptors !== undefined) {
         context["dais.queue"] = interceptors;
     }
