@@ -75,7 +75,9 @@ $ node
    * Involves converting JS objects to maps and then back to objects at the end
 
 For reference, the Java Dais chain runs between 0.02ms - 0.20ms.
-The Pedestal Chain runs between 1-3ms.
+The Pedestal Chain runs between 1-3ms.  The Pedestal chain includes logging,
+runtime metrics, is thread-safe, and has full async capabilities
+(ie: it includes extra signaling and thread-pool migration)
 
 
 ### TODO
