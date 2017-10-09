@@ -61,7 +61,7 @@ NAN_METHOD(BasicExecute) {
                 context = Nan::Call(enter_fn, global_js_context, 1, args).ToLocalChecked().As<v8::Object>();
                 // Check terminators
                 if (std::any_of(terminators.cbegin(), terminators.cend(),
-                            [&](Local<v8::Function> terminator) {
+                            [&](const Local<v8::Function>& terminator) {
                                 return Nan::To<bool>(Nan::Call(terminator, global_js_context, 1, args).ToLocalChecked()).FromJust();
                             })) {
                     should_process_leave = true;
