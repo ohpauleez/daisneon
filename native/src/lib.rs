@@ -2,6 +2,7 @@
 extern crate neon;
 extern crate itertools;
 
+use std::collections::VecDeque;
 use itertools::Itertools;
 use itertools::FoldWhile::{Continue, Done};
 
@@ -24,13 +25,13 @@ fn ret_obj(call: Call) -> JsResult<JsObject> {
 fn basic_execute(call: Call) -> JsResult<JsObject> {
     let scope = call.scope;
     let context = call.arguments.require(scope, 0)?.check::<JsObject>()?;
-    let mut stack : Vec<Handle<JsObject>> = Vec::new();
+    let mut stack : VecDeque<Handle<JsObject>> = VecDeque::new();
     let mut did_terminate = false;
     let interceptors: Vec<Handle<JsValue>> = call.arguments.require(scope, 1)?.check::<JsArray>()?.to_vec(scope)?;
     let ectx = interceptors.iter()
                            .fold_while(context, |ctx, interceptor| {
                                let i: Handle<JsObject> = interceptor.downcast::<JsObject>().unwrap();
-                               stack.push(i);
+                               stack.push_front(i);
                                // TODO: We need to do a `match` on enter_f in case the interceptor
                                // doesn't have it
                                let enter_f: Handle<JsFunction> = i.get(scope, "enter").unwrap().downcast::<JsFunction>().unwrap();
@@ -43,7 +44,6 @@ fn basic_execute(call: Call) -> JsResult<JsObject> {
                                        term_res.value()});
                                if should_terminate { did_terminate = true; Done(new_ctx) } else { Continue(new_ctx) }}).into_inner();
 
-    stack.reverse();
     let final_ctx = if did_terminate {
                       stack.iter()
                            .fold(ectx, |ctx, interceptor| {
