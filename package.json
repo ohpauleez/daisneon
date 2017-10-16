@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "author": "Paul deGrandis <paul.degrandis@gmail.com>",
   "license": "MIT",
+  "repository": "https://github.com/ohpauleez/daisneon",
   "dependencies": {
     "neon-cli": "^0.1.20",
     "lumo-cljs": "1.8.0-beta",

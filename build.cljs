@@ -39,6 +39,6 @@
 ;; Do the build
 (def build-mode (or (first *command-line-args*) "dev"))
 
-(println "Performing build for:" build-mode)
+(println "Performing CLJS build for:" build-mode)
 (b/build "src" (get builds build-mode))
 
