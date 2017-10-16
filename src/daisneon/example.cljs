@@ -1,5 +1,11 @@
 (ns daisneon.example
-  (:require [daisneon.dais :as dais]))
+  (:require ;[dais :as js-dais]
+            [daisneon.dais :as dais]))
+
+;; Note: `js-dais` is not currently used in this file,
+;;       but is written to correctly configure the build/compiler map,
+;;       so that the pattern of integrating JS sources into the CLJS compile/build
+;;       is established and exercised
 
 (def inter-a (dais/interceptor {:enter #(assoc % :a 1)
                                 :leave #(assoc % :leave-a 11)}))

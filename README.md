@@ -51,6 +51,8 @@ cljs.user=> (.Hello bridge/cpp)
  * The ClojureScript REPL has socketrepl support, all via Lumo
  * You may want to modify `target/main.js` and add `goog.require("daisneon.example");`
    if you're working at the node shell via index.js
+ * You can directly require JS files from the CLJS REPL
+   eg: `(require '[dais :as dais])` for JavaScript Dais chain
 
 
 ### Basic benchmarks

@@ -1,6 +1,8 @@
 (require '[lumo.build.api :as b])
 
-(def adv-build {:main 'daisneon.dais
+(def builds {;; Prod Build
+             ;; ----------------
+             "prod" {:main 'daisneon.dais
                 :output-dir "target"
                 :output-to "target/main.js"
                 :source-map "target/main.js.map" ;; Does not currently work in Lumo -- https://github.com/anmonteiro/lumo/issues/132
@@ -10,11 +12,15 @@
                 :pretty-print false
                 :static-fns true
                 :fn-invoke-direct true
+                ;:foreign-libs [{:file "src"
+                ;                :provides ["dais"]}]
                 ;:install-deps :true
                 ;:npm-deps []
-                })
+                }
 
-(def dev-build {:main 'daisneon.dais
+             ;; Dev Build
+             ;; ----------------
+             "dev" {:main 'daisneon.dais
                 :output-dir "target"
                 :output-to "target/main.js"
                 :optimizations :none
@@ -24,9 +30,15 @@
                 ;:pretty-print true
                 ;:static-fns true
                 ;:fn-invoke-direct true
+                ;:foreign-libs [{:file "src"
+                ;                :provides ["dais"]}]
                 ;:install-deps :true
                 ;:npm-deps []
-                })
-;; Prod build
-(b/build "src" dev-build)
+                }})
+
+;; Do the build
+(def build-mode (or (first *command-line-args*) "dev"))
+
+(println "Performing build for:" build-mode)
+(b/build "src" (get builds build-mode))
 

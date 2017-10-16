@@ -15,7 +15,7 @@
   "scripts": {
     "cljs-repl": "lumo -c src:native:build:target:. --repl",
     "cljs-socketrepl": "lumo -c src:native:build:target:. --socket-repl 5555",
-    "compile-cljs": "lumo -c src build.cljs",
+    "compile-cljs": "lumo -c src build.cljs dev",
     "compile-rust": "neon build",
     "compile-cpp": "node-gyp rebuild",
     "install": "node-gyp rebuild && neon build && lumo -c src build.cljs"
